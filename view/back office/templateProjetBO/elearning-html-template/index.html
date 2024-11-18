@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin UNIBOARD</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #2a2d3e;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #4e73df;
+        }
+
+        .sidebar a {
+            color: #b8c1ec;
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+            transition: 0.3s;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .sidebar a:hover {
+            background: #4e73df;
+            color: #fff;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+
+        .sidebar i {
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            background: #f8f9fc;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .user-profile img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 40px;
+        }
+
+        /* Card styles */
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: #4e73df;
+            color: #fff;
+            padding: 10px;
+            font-weight: 500;
+        }
+
+        .card-body i {
+            font-size: 30px;
+            color: #4e73df;
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        .fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Notifications */
+        .notification-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-card ul {
+            list-style: none;
+        }
+
+        .notification-card ul li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .notification-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-card ul li i {
+            color: #4e73df;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2a2d3e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin UNIBOARD</h2>
+        <a href="#"><i class="fas fa-calendar-alt"></i> Emplois du temps</a>
+        <a href="#"><i class="fas fa-user-check"></i> Contrôle des absences</a>
+        <a href="#"><i class="fas fa-book"></i> Gestion des notes</a>
+        <a href="#"><i class="fas fa-comments"></i> Communication étudiants</a>
+        <a href="#"><i class="fas fa-edit"></i> Gestion des cours</a>
+        <a href="#"><i class="fas fa-users"></i> Suivi des étudiants</a>
+        <a href="#"><i class="fas fa-video"></i> Gestion des cours en ligne</a>
+        <a href="#"><i class="fas fa-comments"></i> Réclamation</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="user-profile">
+                <img src="img/profile.jpg" alt="User Profile">
+                <span>ADMINISTRATEUR</span>
+            </div>
+        </nav>
+
+        <!-- Dashboard Cards -->
+        <div class="container mt-4">
+            <div class="row g-4">
+                <!-- Emplois du Temps -->
+                <div class="col-md-3 fadeInUp">
+                    <div class="card animate__animated animate__fadeInUp">
+                        <div class="card-body">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h5>Emplois du Temps</h5>
+                            <p>Modifier et gérer les emplois du temps des étudiants et enseignants.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Classes -->
+                <div class="col-md-3 fadeInUp">
+                    <div class="card animate__animated animate__fadeInUp">
+                        <div class="card-body">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h5>Classes</h5>
+                            <p>Gérer les informations sur les classes et les salles de cours.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gestion des Cours -->
+                <div class="col-md-3 fadeInUp">
+                    <div class="card animate__animated animate__fadeInUp">
+                        <div class="card-body">
+                            <i class="fas fa-book"></i>
+                            <h5>Gestion des Cours</h5>
+                            <p>Organiser et gérer les cours, les matières et les enseignants.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Réclamation -->
+                <div class="col-md-3 fadeInUp">
+                    <div class="card animate__animated animate__fadeInUp">
+                        <div class="card-body">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h5>Réclamation</h5>
+                            <p>Suivi et gestion des réclamations des étudiants et du personnel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Statistiques des Cours</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="coursesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Statistiques des Absences</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="absencesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="container mt-4">
+            <div class="notification-card p-3">
+                <h5>Notifications</h5>
+                <ul>
+                    <li><i class="fas fa-bell"></i> Nouvelle réclamation reçue.</li>
+                    <li><i class="fas fa-calendar"></i> Modifications des emplois du temps disponibles.</li>
+                    <li><i class="fas fa-pen"></i> Nouveaux cours ajoutés pour le semestre.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 UNIBOARD - Tous droits réservés.</p>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        var ctx1 = document.getElementById('coursesChart').getContext('2d');
+        var coursesChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Technologies Web', 'CCC', 'Mathematiques', 'Reseaux de communication' , 'Base de données'],
+                datasets: [{
+                    label: 'Nombre d\'étudiants',
+                    data: [150, 120, 200, 90,100],
+                    backgroundColor: '#4e73df',
+                    borderColor: '#4e73df',
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctx2 = document.getElementById('absencesChart').getContext('2d');
+        var absencesChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Absences',
+                    data: [30, 40, 20, 60, 50],
+                    backgroundColor: 'rgba(78, 115, 223, 0.2)',
+                    borderColor: '#4e73df',
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
