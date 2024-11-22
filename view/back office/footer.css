@@ -1,0 +1,8 @@
+footer.footer {
+    position: fixed; /* ou relative si le contenu est long */
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* Exemple */
+    text-align: center;
+    z-index: 10;
+}
